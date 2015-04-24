@@ -250,11 +250,11 @@ class LoignViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-//        if AVUser.currentUser() != nil {
-//            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//            
-//            appDelegate.window?.rootViewController = MainViewController()
-//        }
+        if AVUser.currentUser() != nil {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            appDelegate.window?.rootViewController = MainViewController()
+        }
     }
     
 

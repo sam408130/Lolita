@@ -76,31 +76,36 @@ class AddViewController: UITableViewController {
         postFeed["postInfo"] = textView!.text
         postFeed["userID"] = AVUser.currentUser().objectId
         var count = 0
-        for postImage in postImages{
-            count += 1
-            let fileData:NSData = UIImagePNGRepresentation(postImage)
-            let file = AVFile.fileWithName("postImage\(count)", data: fileData) as! AVFile
-            postFeed["postImage\(count)"] = file
+        if postImages.count == 0 {
+            displayAlert("照片为空", error: "请选择照片")
+        }else{
+            for postImage in postImages{
+                count += 1
+                let fileData:NSData = UIImagePNGRepresentation(postImage)
+                let file = AVFile.fileWithName("postImage\(count)", data: fileData) as! AVFile
+                postFeed["postImage\(count)"] = file
+                
+            }
             
+            postFeed.saveInBackgroundWithBlock{
+                
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                    //self.displayAlert("添加成功", error: "")
+                    self.delegate?.addCircleDone()
+                    self.navigationController?.popViewControllerAnimated(true)
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                    self.displayAlert("网络连接错误", error: "请检查网络连接")
+                }
+                
+            }
+
         }
         
-        postFeed.saveInBackgroundWithBlock{
-            
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
-                //self.displayAlert("添加成功", error: "")
-                self.delegate?.addCircleDone()
-                self.navigationController?.popViewControllerAnimated(true)
-            } else {
-                self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
-                self.displayAlert("网络连接错误", error: "请检查网络连接")
-            }
-           
-        }
-       
         
     }
     
