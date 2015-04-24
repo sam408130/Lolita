@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        AVOSCloud.setApplicationId("rknkd3jh2x6i5pstemt9kxn7smt2iyf4tlduptwmc85qekag", clientKey: "nakeqqivpslhx990i0epuw4x3fdnqfwakllkj5wwb26etdy2")
+        AVOSCloud.setApplicationId(YOUR_APPKEY, clientKey: YOUR_CLIENTKey)
 
         
         if !DSCommon.sharedInstance.userLogin {
